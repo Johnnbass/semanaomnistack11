@@ -1,0 +1,155 @@
+
+
+###############################################
+#                                             #
+#   CONFIGURAÇÕES / INSTALAÇÕES - OMNISTACK   #
+#                                             #
+###############################################
+
+
+- instalar o node versão lts (pode ser direto ou via NVM)
+
+- criar o diretório do projeto
+
+- dentro do diretório do projeto, criar o diretório /backend
+
+- dentro do diretório /backend, criar o diretório /src
+
+- dentro de /src criar o diretório /database
+
+- dentro de /database criar o diretório /migrations
+
+- dentro do diretório /backend, executar:
+	- $ npm init -y (cria o package.json com as dependências do projeto)
+
+- dentro do diretório /backend, instalar o microframework 'express':
+	- $ npm install express --save (esta flag inclui a biblioteca instalada no projeto atual)
+
+- dentro do diretório /backend/src, criar o index.js
+
+- no index.js:
+	-importar o express
+		- const express = require('express')
+	- cria a aplicação inicializando o express
+		- const app = express();
+	- inicia a escuta da porta onde irá rodar o projeto
+		- app.listen(3333)
+
+- no diretório raiz do projeto, criar o projeto react com o npx:
+	- $ npx create-react-app frontend
+
+- para executar a aplicação criada com o react, rodar:
+	- $ npm start
+
+- instalar a aplicação 'insomnia':
+	- $ snap install insomnia
+	- o insomnia serve para auxiliar a testar a aplicação que está sem front
+
+- instalar o nodemon para auxiliar na atualização do código sem precisar parar e reiniciar o node manualmente
+	- $ npm install nodemon -D (esta flag instala o nodemon como dependência de dev no package.json
+
+- após instalar o nodemon, configurar no package.json, em 'scripts', o 'start' com 'nodemon src/index.js'
+
+- instalar o knex para banco de dados
+	- $ npm install knex --save (flag para incluir nas dependências do projeto atual)
+
+- instalar o driver do banco que será utilizado (SQLite)
+	- $ npm install sqlite3
+
+- rodar o comando do knex para configurar a conexão com o banco de dados (arquivo Knexfile.js)
+	- $ npx knex init
+
+- incluir, no arquivo Knexfile.js, o path do diretório /database com o nome do arquivo do banco de dados:
+	- development: {
+	    client: 'sqlite3',
+	    connection: {
+	      filename: './src/database/db.sqlite'
+	    }
+	  },
+
+- incluir, no arquivo Knexfile.js, o path do diretório /migrations:
+	- development: {
+	    client: 'sqlite3',
+	    connection: {
+	      filename: './src/database/db.sqlite'
+	    },
+	    migrations: {
+	      directory: './src/database/migrations'
+	    }
+	  },
+
+- incluir, no arquivo Knexfile.js, a config 'useNullAsDefault: true'
+	- development: {
+	    client: 'sqlite3',
+	    connection: {
+	      filename: './src/database/db.sqlite'
+	    },
+	    migrations: {
+	      directory: './src/database/migrations'
+	    },
+	    useNullAsDefault: true
+	  },
+
+# DÚVIDAS SOBRE OS COMANDOS SQL DO kNEX, CONSULTAR A DOCUMENTAÇÃO DA BIBLIOTECA (http://knexjs.org/)
+
+- rodar o comando para criar a primeira migration:
+	- $ npx knex migrate:make create_ongs
+
+- no arquivo migration criada:
+	- configurar o método exports.up para criar a tabela e seus campos (knex.schema.createTable):
+		- exports.up = function(knex) {
+		    return knex.schema.createTable('ongs', function(table) {
+		      table.string('id').primary();
+		      table.string('name').notNullable();
+		      table.string('email').notNullable();
+		      table.string('whatsapp').notNullable();
+		      table.string('city').notNullable();
+		      table.string('uf', 2).notNullable();
+		    });
+		  };
+	- configurar o método exports.down para destruir a tabela (knex.schema.dropTable):
+		- exports.down = function(knex) {
+		    return knex.schema.dropTable('ongs');
+		  };
+
+- rodar o comando para atualizar a migration:
+	- $ npx knex migrate:latest
+
+- criar as demais migrations (tabelas), configurando seus métodos, conforme o item anterior:
+	- $ npmx knex migrate: make create incidents
+		- exports.up = function(knex) {
+		    return knex.schema.createTable('incidents', function(table) {
+		      table.increments();
+		      table.string('title').notNullable();
+		      table.string('description').notNullable();
+		      table.decimal('value').notNullable();
+
+		      table.string('ong_id').notNullable(); // coluna chave estrangeira
+
+		      table.foreign('ong_id').references('id').inTable('ongs'); // configura a chave estrangeira
+		    });
+		  };
+
+		- exports.down = function(knex) {
+		    return knex.schema.dropTable('incidents');
+		  };
+
+- rodar o comando para atualizar a migration:
+	- $ npx knex migrate:latest
+
+# CASO TENHO FEITO ALGO ERRADO EM UMA MIGRATION, APÓS TER RODADO MIGRATE:LATEST, É POSSÍVEL RETORNAR RODANDO: $ NPX KNEX MIGRATE:ROLLBACK
+
+- dentro do diretório /database, criar o arquivo connection.js
+
+- configurar o arquivo de conexão comn o banco de dados (connection.js)
+	- const knex = require('knex');
+	  const configuration = require('../../knexfile');
+
+	  const connection = knex(configuration.development);
+
+	  module.exports = connection;
+
+- dentro do diretório /src, criar o diretório /controllers, para armazenar as controllers dos módulos
+
+- após a construção do backend, instalar o módulo CORS:
+	- $ npm install cors
