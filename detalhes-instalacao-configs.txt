@@ -6,10 +6,15 @@
 #                                             #
 ###############################################
 
-
 - instalar o node versão lts (pode ser direto ou via NVM)
 
 - criar o diretório do projeto
+
+- instalar e iniciarlizar o git dentro do diretório principal onde estão as duas partes do projeto, /backend e /frontend
+
+###################
+###   BACKEND   ###
+###################
 
 - dentro do diretório do projeto, criar o diretório /backend
 
@@ -151,5 +156,87 @@
 
 - dentro do diretório /src, criar o diretório /controllers, para armazenar as controllers dos módulos
 
+- cada controller criada deve ser responsável pelos métodos "crud" de cada entidade
+
+- cada controller criada deve possuir uma rota configurada no arquivo de rotas
+
 - após a construção do backend, instalar o módulo CORS:
 	- $ npm install cors
+
+- após finalizar todo o backend, enviar para o repositório
+
+####################
+###   FRONTEND   ###
+####################
+
+- iniciar limpando a estrutura
+	- excluir o arquivo README.md
+	- no diretório /src, excluir todos os arquivos, deixando apenas App.js e index.js
+		- remover os imports dos arquivos excluídos nos dois arquivos restantes
+	- no diretório /public, excluir todos os arquivos, deixando apenas index.html e favicon.ico
+
+- propriedades:
+	- podem ser passadas dentro da tag do elemento (ex.: < title=""></ >) e capturadas como o parâmetro 'props' do método, retornando dentro do html do elemento como <>{ props.title }</>
+	- podem ser passadas como conteúdo da tag e capturadas como o parâmetro 'props' do método, retornando dentro do html do elemento como <>{ props.children }</>
+	- podem ser passadas como conteúdo da tag e capturadas de forma desestruturada como o parâmetro '{children}' do método, retornando dentro do html do elemento como <>{ children }</>
+
+- estados:
+	import React, { useState } from "react";
+
+	function App() {
+	  const [counter, setCounter] = useState(0); // counter não é uma variável, é um estado
+
+	  /**
+	   * No React, quando algum componente precisar armazenar alguma informação,
+	   * utilizar o conceito de estados.
+	   *
+	   * Ao usar o useState(), é retornado um array com 2 posições:
+	   * [valor, funcaoDeAtualizacao]
+	   * Esta função de atualização, então, deve ser implementada para fazer as
+	   * alterações desejadas.
+	   */
+
+	  function increment() {
+	    setCounter(counter + 1);
+	  }
+
+	  return (
+	    <div>
+	      <Header>Contador: {counter}</Header>
+	      <button onClick={increment}>Incrementar</button>
+	    </div>
+	  );
+	}
+
+- dentro do diretório /src, criar um diretório /assets para armazenar tudo que não for código
+
+- dentro do diretório /src, criar um diretório /pages para armazenar as páginas (templates)
+
+- dentro do diretório /pages, criar um diretório para cada página
+
+- dentro de cada diretório de cada página, criar o js e o css de cada página
+
+- criar um arquivo globals.css que terá os estilos globais
+
+- instalar o react-icons:
+	- $ npm install react-icons
+
+- ícones do react funcionam como componentes
+
+- instalar o react-router-dom (pacote responsável pelas rotas no frontend)
+	- npm install react-router-dom
+
+- após criar as páginas do front, fazer a conexão com o backend: 
+
+- no diretório /backend, rodar o comando para iniciar o servidor:
+	- $ npm start
+
+
+
+
+
+
+
+
+
+
