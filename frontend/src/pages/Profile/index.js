@@ -15,8 +15,7 @@ export default function Profile() {
   const ongId = localStorage.getItem("ongId");
   const ongName = localStorage.getItem("ongName");
 
-
-  useEffect(() => {
+  useEffect(() => { // usado para carregar os casos ao entrar no perfil
     api
       .get("profile", {
         headers: {
@@ -62,7 +61,7 @@ export default function Profile() {
       </header>
 
       <h1>Casos Cadastrados</h1>
-
+      
       <ul>
         {incidents.map(incident => (
           <li key={incident.id}>

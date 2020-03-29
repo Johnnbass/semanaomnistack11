@@ -6,7 +6,7 @@ module.exports = {
 
     // total de itens de paginação, geralmente é enviado via header,
     // body é utilizado para envio de dados
-    const [count] = await connection("incidents").count();
+    const [count] = await connection("incidents").count(); // contador de páginas
 
     const incidents = await connection("incidents")
       .join("ongs", "ongs.id", "=", "incidents.ong_id")
@@ -21,7 +21,7 @@ module.exports = {
         "ongs.uf"
       ]);
 
-    response.header("X-Total-Count", count["count(*)"]);
+    response.header("X-Total-Count", count["count(*)"]); // envia contagem das páginas no header
 
     return response.json(incidents);
   },

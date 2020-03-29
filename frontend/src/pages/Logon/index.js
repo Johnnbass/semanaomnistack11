@@ -9,16 +9,17 @@ import logoImg from "../../assets/logo.svg";
 import heroesImg from "../../assets/heroes.png";
 
 export default function Logon() {
-  const [id, setId] = useState("");
+  const [id, setId] = useState(""); // useState() retorna um valor e uma função
 
-  const history = useHistory();
+  const history = useHistory(); // utilizado para fazer o redirect da página
 
   async function handleLogin(e) { // deve-se usar o "async" para poder usar o "await"
     e.preventDefault();
 
     try {
-      const response = await api.post('sessions', { id });
+      const response = await api.post('sessions', { id }); // utiliza a api criada com a aplicação http para fazer o envio do requisição
 
+      // salva os dados de sessão no local storage do navegador
       localStorage.setItem('ongId', id);
       localStorage.setItem('ongName', response.data.name);
 

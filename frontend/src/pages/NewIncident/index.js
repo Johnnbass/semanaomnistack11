@@ -28,7 +28,7 @@ export default function NewIncident() {
     try {
       await api.post('incidents', data, {
         headers: {
-          Authorization: ongId,
+          Authorization: ongId, // faz o envio da autorização com o id para o protocolo http
         }
       })
 
