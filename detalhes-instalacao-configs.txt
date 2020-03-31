@@ -6,15 +6,18 @@
 #                                             #
 ###############################################
 
+
 - instalar o node versão lts (pode ser direto ou via NVM)
 
 - criar o diretório do projeto
 
 - instalar e iniciarlizar o git dentro do diretório principal onde estão as duas partes do projeto, /backend e /frontend
 
+
 ###################
 ###   BACKEND   ###
 ###################
+
 
 - dentro do diretório do projeto, criar o diretório /backend
 
@@ -165,9 +168,11 @@
 
 - após finalizar todo o backend, enviar para o repositório
 
+
 ####################
 ###   FRONTEND   ###
 ####################
+
 
 - iniciar limpando a estrutura
 	- excluir o arquivo README.md
@@ -226,10 +231,63 @@
 - instalar o react-router-dom (pacote responsável pelas rotas no frontend)
 	- npm install react-router-dom
 
-- após criar as páginas do front, fazer a conexão com o backend: 
+##########
 
-- no diretório /backend, rodar o comando para iniciar o servidor:
+- após criar as páginas do front, fazer a conexão do react com o backend:
+
+- no diretório /backend, rodar o comando para rodar o nodemon:
 	- $ npm start
+
+- instalar o cliente http:
+	- $ npm install axios
+
+- dentro do diretório /frontend/src, criar um diretório /services
+
+- dentro do diretório /services, criar o arquivo 'api.js' que será responsável pelo serviço de http
+
+
+##################
+###   MOBILE   ###
+##################
+
+
+- intalar o android studio (para usar o emulador)
+
+- configurar o emulador do android para simular o aplicativo
+
+- instalar o expo:
+	- $ npm install -g expo-cli
+
+- no mesmo diretório onde se encontram o /backend e o /frontend, para inicializar o projeto mobile, rodar:
+	- $ expo init mobile
+
+- instalar o react navigation:
+	- $ npm install @react-navigation/native
+	- instalar as dependências do do expo para a biblioteca:
+		- $ expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+	- instalar o navigator tipo stack: utilizando botões, etc...
+		- $ npm install @react-navigation/stack
+
+- instalar o pacote:
+	- $ expo install expo-constants
+
+- instalar o pacote de e-mail do expo:
+	- $ expo install expo-mail-composer
+
+- instalar o cliente http:
+	- $ npm install axios
+
+- dentro do diretório /frontend/src, criar um diretório /services
+
+- dentro do diretório /services, criar o arquivo 'api.js' que será responsável pelo serviço de http
+
+- instalar o pacote de internacionalização intl:
+	- $ npm install intl
+
+- 
+
+
+
 
 
 

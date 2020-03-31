@@ -15,7 +15,7 @@ export default function Profile() {
   const ongId = localStorage.getItem("ongId");
   const ongName = localStorage.getItem("ongName");
 
-  useEffect(() => { // usado para carregar os casos ao entrar no perfil
+  useEffect(() => { // usado para carregar os casos ao entrar no perfil, a ação é executada quando os dados mudam
     api
       .get("profile", {
         headers: {
