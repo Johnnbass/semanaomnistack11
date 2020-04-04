@@ -281,20 +281,104 @@
 
 - dentro do diretório /services, criar o arquivo 'api.js' que será responsável pelo serviço de http
 
-- instalar o pacote de internacionalização intl:
+- instalar o pacote de internacionalização intl (para android não é nativo):
 	- $ npm install intl
 
-- 
+
+#####################################
+###   FUNCIONALIDADES AVANÇADAS   ###
+#####################################
 
 
+- dentro do diretório /backend, instalar o celebrate, biblioteca para validações (celebrate usa o joi que é a biblioteca de validações do hapi, ele faz a integração do joi com o express)
+	- $ npm install celebrate
 
+- a inclusão de parâmetros para as rotas deve ser sequencial, que é a maneira como o express interpreta os dados passados
 
+- dentro da rota onde se deseja aplicar a validação, incluir o parâmetro 'Celebrate()', passando como parâmetro um objeto que conterá as validações:
+	- ex.: [Segments.BODY]: Joi.object().keys({
+		    name: Joi.string().required(),
+		    email: Joi.string().required().email(),
+		    whatsapp: Joi.number().required().min(10).max(11),
+		    city: Joi.string().required(),
+		    uf: Joi.string().required().length(2),
+	  	})
 
+- Para tratamento dos erros 500 exibidos ao cair em alguma validação, incluir no index da aplicação, o 'errors' do Celebrate
 
+- O 'errors()' deve ser chamado logo após a chamada de 'routes'
 
+##################
+###   TESTES   ###
+##################
 
+- instalar o 'jest':
+	- $ npm install jest -D (dependência de dev)
 
+- no diretório do projeto, rodar:
+	- $ npx jest --init
 
+- criar um diretório para os testes e separar as categorias também por diretórios (unitários, integração, etc)
 
+- ao criar um arquivo de teste, utilizar o padrão 'nomedoteste.spec.js'
 
+- para utilização, consultar documentação do jest
+
+- para criar um banco de testes:
+	- no arquivo de configuração do knex 'knexfile.js', pode ser copiada a config 'development', alterando
+	  seu nome para test, e alterando o filename de 'db.sqlite' para 'test.sqlite'
+
+	- instalar a ferramenta cross-env:
+		- $ npm install cross-env
+
+	- no arquivo 'package.json', alterar nos scripts o 'test' de 'jest' para 'cross-env NODE_ENV=test jest'
+
+	- após, no arquivo 'connection.js' do banco de dados, criar uma condição com a variável global NODE_ENV para definir qual banco utilizar:
+		- const config = process.env.NODE_ENV == 'test' ? configuration.test : configuration.development
+
+- para testes de integração (utilizando funcionalidades da aplicação, banco de dados, etc), é preciso instalar a biblioteca 'supertest'
+	- $ npm install supertest -D (dependência de dev)
+
+- configurar o servidor para que o teste não execute a aplicação para o endereço definido:
+	- no diretório /src, criar um arquivo 'server.js'
+	
+	- renomear o arquivo 'index.js' para 'app.js' e alterar no arquivo 'package.json' o start para 'server.js'
+
+	- no 'app.js' alterar app.listen(port) para module.exports = app
+
+	- importar no arquivo 'server.js', o app exportado, e aí aplicar o app.listen(port)
+
+- quando for testar alguma requisição que precisa enviar header, adicionar por exemplo .set('Authorization', 'attr válido a ser enviado, ex.: id')
+
+##################
+###   DEPLOY   ###
+##################
+
+- Hospedagem de uma aplicação Node:
+
+	- Para aplicações menores, indicado o Heroku
+		- Ver vídeo RocketSeat: Deploy de aplicação NodeJS e ReactJS no Heroku
+		- Heroku é bom para aplicações pequenas
+
+	- Para aplicações maiores, indicada a Digital Ocean:
+		- ver vídeo RocketSeat: Deploy de apps Node.js - Masterclass #03
+		- precificação mais previsível
+
+- Hospedagem de uma aplicação React:
+
+	- Para aplicações pequenas, indicada Netlify
+		- apenas para front
+		- reconhece automaticamente a aplicação a partir do reposítório e executa o deploy
+		- problema preço ao escalar a aplicação
+
+- Mobile:
+	- ver vídeo RocketSeat: Gerando APK (Android) e IPA (iOS) com React Native & Expo - Code/Drops #15
+
+#########################
+###   RECOMENDAÇÕES   ###
+#########################
+
+- ESLint, Prettier
+- Autenticação JWT: vídeo RocketSeat
+- Styled Components (React e React Native): vídeo RocketSeat
 
